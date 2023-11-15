@@ -12,7 +12,7 @@ function BoardRow({ row, value, handleChildClick }) {
   // 0〜2として受け取ったrowを3倍しておき、後に3列のsquare3要素に足して0〜8の9個の一意なidにするためのオフセット
   const row_offset = parseInt(row) * 3;
 
-  // row_squares[]に3つのSquareを格納
+  // row_squares[]にSquareを3つ格納
   const row_squares = [...Array(3).keys()].map((i) => {
     let id = i + row_offset;
     return (
