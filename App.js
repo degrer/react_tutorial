@@ -9,25 +9,26 @@ function Square({ value, onSquareClick }) {
 }
 
 function BoardRow({ row, value, handleChildClick }) {
-  // 0〜2として受け取ったrowを3倍しておき、後にもう一つ3ループと合わせて0〜8の9個の一意なidにするためのオフセット
+  // 0〜2として受け取ったrowを3倍しておき、後に3列のsquare3要素に足して0〜8の9個の一意なidにするためのオフセット
   const row_offset = parseInt(row) * 3;
 
-  // squaresに
-  const row_squares = [];
-  for (let i of [...Array(3)].map((_, x) => x)) {
+  // row_squares[]に3つのSquareを格納
+  const row_squares = [...Array(3).keys()].map((i) => {
     let id = i + row_offset;
-    row_squares.push(
+    return (
       <Square value={value[id]} onSquareClick={() => handleChildClick(id)} />
     );
-  }
+  });
   return <div className="board-row">{row_squares}</div>;
 }
 
 function Board({ xIsNext, squares, onPlay }) {
   const winner = calcWinner(squares);
+
   let status = winner
     ? "Winner : " + winner
     : "next player : " + (xIsNext ? "X" : "O");
+
   // イベントハンドラ
   function handleClick(i) {
     if (squares[i] || calcWinner(squares)) {
@@ -39,17 +40,16 @@ function Board({ xIsNext, squares, onPlay }) {
 
     onPlay(nextSquares);
   }
-  // BoardRowを3回分rowsに貯める
-  const rows = [];
-  for (let i of [...Array(3)].map((_, x) => x)) {
-    rows.push(
+  // rows[]にBoardRowを3つ格納
+  const rows = [...Array(3).keys()].map((i) => {
+    return (
       <BoardRow
         row={i}
         value={squares}
         handleChildClick={(x) => handleClick(x)}
       />
     );
-  }
+  });
 
   return (
     <>
