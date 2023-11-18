@@ -19,7 +19,14 @@ function BoardRow({ row, value, handleChildClick }) {
       <Square value={value[id]} onSquareClick={() => handleChildClick(id)} />
     );
   });
-  return <div className="board-row">{row_squares}</div>;
+  return <div className="board-row">
+    {[...Array(3).keys()].map((i) => {
+      let id = i + row_offset;
+      return (
+        <Square value={value[id]} onSquareClick={() => handleChildClick(id)} />
+      )
+    })}
+  </div>;
 }
 
 function Board({ xIsNext, squares, onPlay }) {
@@ -40,21 +47,19 @@ function Board({ xIsNext, squares, onPlay }) {
 
     onPlay(nextSquares);
   }
-  // rows[]にBoardRowを3つ格納
-  const rows = [...Array(3).keys()].map((i) => {
-    return (
-      <BoardRow
-        row={i}
-        value={squares}
-        handleChildClick={(x) => handleClick(x)}
-      />
-    );
-  });
 
   return (
     <>
       <div className="status">{status}</div>
-      {rows}
+        {[...Array(3).keys()].map((i) => {
+          return (
+            <BoardRow
+              row={i}
+              value={squares}
+              handleChildClick={(x) => handleClick(x)}
+            />
+          );
+        })}
     </>
   );
 }
