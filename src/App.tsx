@@ -8,7 +8,7 @@ type handleClickType = (i: number) => void;
 type squareArgsType = {
   value: string|null,
   onSquareClick: React.MouseEventHandler<HTMLButtonElement>,
-}
+};
 function Square({ value, onSquareClick }: squareArgsType) {
   value = value ? value : "";
   return (
@@ -22,7 +22,7 @@ type boardRowArgsType = {
   row: number,
   square: squareType,
   handleChildClick: handleClickType,
-}
+};
 function BoardRow({ row, square, handleChildClick }: boardRowArgsType) {
   // 0〜2として受け取ったrowを3倍しておき、後に3列のsquare3要素に足して0〜8の9個の一意なidにするためのオフセット
   const row_offset = row * 3;
@@ -43,7 +43,7 @@ type boardArgsType = {
   xIsNext: boolean,
   squares: squareType,
   onPlay: onPlayType
-}
+};
 function Board({ xIsNext, squares, onPlay }: boardArgsType) {
   const winner = calcWinner(squares);
 
@@ -78,6 +78,7 @@ function Board({ xIsNext, squares, onPlay }: boardArgsType) {
     </>
   );
 }
+
 export default function Game() {
   const [history, setHistory] = useState<Array<squareType>>([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState<number>(0);
